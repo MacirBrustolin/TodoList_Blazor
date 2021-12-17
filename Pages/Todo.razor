@@ -7,21 +7,31 @@
                 <li>
                     <input type="checkbox" @bind="todo.IsDone" />
                     <input @bind="todo.Title" />
+                    <input @bind="todo.DueDate" />
                 </li>
             }
 </ul>
 
-<input placeholder="Something todo" @bind="newTodo"/>
+<input placeholder="Something to Do" @bind="newTodo" @bind:event="oninput"/>
+<input placeholder="Due Date" @bind="dueDate" @bind:format="dd-MM-yyyy"/>
 <button @onclick="AddTodo">Add todo</button>
 
+@if (!string.IsNullOrEmpty(newTodo)) {
+                <p>@newTodo Due: @DueDate?.ToShortDateString() </p>
+            }
+
 @code {
-    private string? newTodo;
+    private string newTodo = string.Empty;
+
+    private DateTime dueDate = DateTime.Today;
 
     private List<TodoItem> todos = new();
 
+    private DateTime? DueDate = null;
+
     private void AddTodo() {
         if (!string.IsNullOrWhiteSpace(newTodo)) {
-            todos.Add(new TodoItem { Title = newTodo });
+            todos.Add(new TodoItem { Title = newTodo, DueDate = dueDate });
             newTodo = string.Empty;
         }
     }

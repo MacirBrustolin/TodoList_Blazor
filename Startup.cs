@@ -28,6 +28,7 @@ namespace TodoList
         {
             services.AddRazorPages();
             services.AddServerSideBlazor();
+            //services.AddHttpClient();
             services.AddSingleton<WeatherForecastService>();
         }
 

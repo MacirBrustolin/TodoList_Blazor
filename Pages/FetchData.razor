@@ -3,6 +3,7 @@
 @using TodoList.Data
 @inject WeatherForecastService ForecastService
 
+
 <h1>Weather forecast</h1>
 
 <p>This component demonstrates fetching data from a service.</p>
@@ -37,10 +38,12 @@ else
 }
 
 @code {
-    private WeatherForecast[] forecasts;
+    private IEnumerable<WeatherForecast> forecasts;
 
     protected override async Task OnInitializedAsync()
     {
         forecasts = await ForecastService.GetForecastAsync(DateTime.Now);
+        //@inject HttpClient Http
+        //forecasts = await Http.GetFromJsonAsync<IEnumerable<WeatherForecast>>("https://localhost:5001/api/forecast");
     }
 }
